@@ -16,6 +16,8 @@ use std::rc::Rc;
 
 use camera::Camera;
 use color::Color;
+use cube::Cube;
+use cylinder::Cylinder;
 use hittable::{HitRecord, Hittable};
 use hittable_list::HittableList;
 use material::Lambertian;
@@ -67,19 +69,36 @@ fn main() {
     let plane_material = Rc::new(Lambertian::new(Color::new(0.3, 0.3, 0.3)));
     world.add(Box::new(Plane::horizontal(0.0, plane_material)));
 
-    // Sphere - dark blue color
+    // Sphere - dark blue color (left)
     let sphere_material = Rc::new(Lambertian::new(Color::new(0.2, 0.2, 0.4)));
     world.add(Box::new(Sphere::new(
-        Point3::new(0.0, 1.0, 0.0),
+        Point3::new(-3.0, 1.0, 0.0),
         1.0,
         sphere_material,
     )));
 
-    // Camera positioned to view the sphere on the plane
+    // Cube - dark purple color (center-left)
+    let cube_material = Rc::new(Lambertian::new(Color::new(0.3, 0.2, 0.4)));
+    world.add(Box::new(Cube::new(
+        Point3::new(-0.75, 0.0, -0.75),
+        Point3::new(0.75, 1.5, 0.75),
+        cube_material,
+    )));
+
+    // Cylinder - dark red color (center-right)
+    let cylinder_material = Rc::new(Lambertian::new(Color::new(0.4, 0.2, 0.2)));
+    world.add(Box::new(Cylinder::new(
+        Point3::new(2.0, 0.0, 0.0),
+        0.8,
+        1.6,
+        cylinder_material,
+    )));
+
+    // Camera positioned to see all objects
 
     let cam = Camera::new(
-        Point3::new(3.0, 2.0, 3.0),
-        Point3::new(0.0, 1.0, 0.0),
+        Point3::new(0.0, 2.0, 5.0),
+        Point3::new(0.0, 0.8, 0.0),
         Vec3::new(0.0, 1.0, 0.0),
         40.0,
         ASPECT_RATIO,
