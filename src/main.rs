@@ -94,13 +94,13 @@ fn main() {
         cylinder_material,
     )));
 
-    // Camera positioned to see all objects
+    // Camera positioned to see all objects from a different angle
 
     let cam = Camera::new(
-        Point3::new(0.0, 2.0, 5.0),
+        Point3::new(5.0, 3.0, 3.0),
         Point3::new(0.0, 0.8, 0.0),
         Vec3::new(0.0, 1.0, 0.0),
-        40.0,
+        35.0,
         ASPECT_RATIO,
     );    // Render
  
