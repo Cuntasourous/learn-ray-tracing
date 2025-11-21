@@ -1,26 +1,30 @@
 mod camera;
 mod color;
 mod common;
+mod cube;
+mod cylinder;
 mod hittable;
 mod hittable_list;
 mod material;
+mod plane;
 mod ray;
 mod sphere;
 mod vec3;
  
 use std::io;
 use std::rc::Rc;
- 
+
 use camera::Camera;
 use color::Color;
+use cube::Cube;
+use cylinder::Cylinder;
 use hittable::{HitRecord, Hittable};
 use hittable_list::HittableList;
 use material::{Dielectric, Lambertian, Metal};
+use plane::Plane;
 use ray::Ray;
 use sphere::Sphere;
-use vec3::{Point3, Vec3};
- 
-fn ray_color(r: &Ray, world: &dyn Hittable, depth: i32) -> Color {
+use vec3::{Point3, Vec3};fn ray_color(r: &Ray, world: &dyn Hittable, depth: i32) -> Color {
     // If we've exceeded the ray bounce limit, no more light is gathered
     if depth <= 0 {
         return Color::new(0.0, 0.0, 0.0);
@@ -47,11 +51,11 @@ fn ray_color(r: &Ray, world: &dyn Hittable, depth: i32) -> Color {
 }
  
 fn main() {
-    // Image
- 
+    // Image dimensions
     const ASPECT_RATIO: f64 = 16.0 / 9.0;
-    const IMAGE_WIDTH: i32 = 400;
-    const IMAGE_HEIGHT: i32 = (IMAGE_WIDTH as f64 / ASPECT_RATIO) as i32;
+    const IMAGE_WIDTH: i32 = 800;
+    const IMAGE_HEIGHT: i32 = 600;
+    // const IMAGE_HEIGHT: i32 = (IMAGE_WIDTH as f64 / ASPECT_RATIO) as i32;
     const SAMPLES_PER_PIXEL: i32 = 100;
     const MAX_DEPTH: i32 = 50;
  
